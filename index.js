@@ -23,8 +23,9 @@ const jwt = require('jsonwebtoken')
 
 app.use(express.json())
 
-app.use(cors())
+app.use(app.use(cors({credentials: true, origin: 'https://gbg-client.vercel.app'})))
 //vaiaiiiiiiiiiiiiiiiiiiiiiiiiiiii saco de cors
+//fasdhfuasduhfaushdfhuasdhf
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
 
