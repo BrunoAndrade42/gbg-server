@@ -9,12 +9,12 @@ const session = require('express-session');
 
 const path = require('path')
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static('build'))
-    app.get('*', (req, res) => {
-        req.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
-    })
-}
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static('build'))
+//     app.get('*', (req, res) => {
+//         req.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
+//     })
+// }
 
 const bcrypt = require('bcrypt')
 const saltRounds = 10
@@ -24,7 +24,7 @@ const jwt = require('jsonwebtoken')
 app.use(express.json())
 
 app.use(cors({
-        origin: ["*"],
+        origin: ["http://localhost:3000"],
         methods: ["GET", "POST"],
         credentials: true
     })
@@ -43,10 +43,11 @@ app.use(session({
 }))
 
 const db = mysql.createConnection({
-    host     : process.env.HOST,
-    user     : process.env.USER,
-    password : process.env.PASSWORD,
-    database : process.env.DATABASE
+
+    host     : process.env.HOST || 'localhost',
+    user     : process.env.USER || 'root',
+    password : process.env.PASSWORD || 'password',
+    database : process.env.DATABASE || 'gbgbd'
 })
   
 app.post("/register", (req, res) => {
@@ -128,7 +129,7 @@ app.post('/login', (req, res) => {
     const sqlSelect = "SELECT * FROM autenticacao WHERE email = ?;";
 
     db.query(sqlSelect, email, (err, result) => {
-        
+        console.log(result)
         if(err) {
             res.send({err: err})
         } 
