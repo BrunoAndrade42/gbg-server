@@ -24,7 +24,7 @@ const jwt = require('jsonwebtoken')
 app.use(express.json())
 
 app.use(cors())
-
+//vaiaiiiiiiiiiiiiiiiiiiiiiiiiiiii saco de cors
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
 
