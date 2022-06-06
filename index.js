@@ -21,7 +21,7 @@ const saltRounds = 10
 
 const jwt = require('jsonwebtoken')
 
-app.use(cors({credentials: true, origin: 'https://gbg-client.vercel.app'}));
+app.use(cors());
 
 app.use(express.json())
 
