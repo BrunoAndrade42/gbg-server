@@ -24,7 +24,7 @@ const jwt = require('jsonwebtoken')
 app.use(express.json())
 
 app.use(cors({
-        origin: ["http://localhost:3000"],
+        origin: ["*"],
         methods: ["GET", "POST"],
         credentials: true
     })
@@ -43,10 +43,10 @@ app.use(session({
 }))
 
 const db = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'password',
-    database : 'gbgbd'
+    host     : process.env.HOST,
+    user     : process.env.USER,
+    password : process.env.PASSWORD,
+    database : process.env.DATABASE
 })
   
 app.post("/register", (req, res) => {
