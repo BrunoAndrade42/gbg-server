@@ -17,11 +17,6 @@ const jwt = require('jsonwebtoken')
 
 app.use(cors())
 
-app.all('/register', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next()
-  });
 app.all('/login', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -57,7 +52,7 @@ const db = mysql.createConnection({
     database : process.env.DATABASE || 'gbgbd'
 })
   
-app.post("/register", (req, res) => {
+app.post("/register", cors(), (req, res) => {
     const usuario = req.body.usuario
     const email = req.body.email
     const senha = req.body.senha
