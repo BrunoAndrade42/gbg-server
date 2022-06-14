@@ -9,12 +9,6 @@ const session = require('express-session');
 
 const path = require('path')
 
-// if (process.env.NODE_ENV === "production") {
-//     app.use(express.static('build'))
-//     app.get('*', (req, res) => {
-//         req.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
-//     })
-// }
 
 const bcrypt = require('bcrypt')
 const saltRounds = 10
@@ -26,8 +20,6 @@ app.use(cors())
 app.use(express.json())
 
 
-//vaiaiiiiiiiiiiiiiiiiiiiiiiiiiiii saco de cors
-//fasdhfuasduhfaushdfhuasdhf
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -119,6 +111,32 @@ app.get('/todos-jogos', (req, res) => {
         }
     })
 
+})
+
+app.get('/avaliacao', (req, res) => {
+    const sqlSelect = "SELECT * FROM avaliacoes";
+
+
+    db.query(sqlSelect, (err, result) => {
+        if (err) {
+            res.send({ err: err})
+        } else {
+            res.send(result)
+        }
+    })
+
+})
+
+app.post('/avaliacao', (req, res) => {
+    const stars = req.body.stars
+    const autor = req.body.autor
+    const email = req.body.email
+    const conteudo = req.body.conteudo
+    const idJogo = req.body.idJogo
+
+    const sqlInsert = "INSERT INTO avaliacoes (rating, autor, email, conteudo, idJogo) VALUES (?, ?, ?, ?, ?);";
+
+    db.query(sqlInsert, [stars, autor, email, conteudo, idJogo], (err, result) => {console.log(err)});
 })
 
 app.post('/login', (req, res) => {
